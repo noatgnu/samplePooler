@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Input Data</h5>
+      <app-file-input-widget [fileType]="'Tabulated File'" (readData)="handleOutput($event)"></app-file-input-widget>
+
+      <ng-container *ngIf="inputFile.df.count()>0">
+        <label for="sampleColumns">Select Sample Columns</label>
+        <select id="sampleColumns" class="form-control" [(ngModel)]="sampleLists" multiple>
+          <option *ngFor="let o of inputFile.df.getColumnNames()">
+            {{o}}
+          </option>
+        </select>
+      </ng-container>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" (click)="calculateSum()">Calculate Aliquot Ratio</button>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-2" *ngIf="finished">
+  <table class="table table-sm table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">
+          Sample
+        </th>
+        <th scope="col">
+          Normalized Sum
+        </th>
+        <th scope="col">
+          Aliquot Ratio based on <span class="text-danger">{{based_on}}</span>
+        </th>
+        <th scope="col">
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let c of sampleLists">
+      <td>{{c}}</td>
+      <td>{{sampleSum[c]}}</td>
+      <td>{{ratios[c]}}</td>
+      <td><button class="btn btn-sm btn-primary" (click)="setAsBase(c)">Set as base</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-container *ngIf="finished">
+  <div class="container-fluid mt-2">
+    <app-bar-chart [data]="ratios"></app-bar-chart>
+  </div>
+</ng-container>
+

@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
   calculateRatio(based_on: string) {
     const ratios: any = {}
     for (const c of this.sampleLists) {
-      ratios[c] = this.sampleSum[c]/this.sampleSum[based_on]
+      ratios[c] = this.sampleSum[based_on]/this.sampleSum[c]
     }
     this.ratios = ratios
     this.finished = true

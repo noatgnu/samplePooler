@@ -50,8 +50,9 @@ export class HomeComponent implements OnInit {
     this.sampleSum = sampleSum
     const values: number[] = Object.values(this.sampleSum)
     const highestSample: string = Object.keys(this.sampleSum)[values.indexOf(Math.max(...values))]
-    this.based_on = highestSample
-    this.calculateRatio(highestSample)
+    const lowestSample: string = Object.keys(this.sampleSum)[values.indexOf(Math.min(...values))]
+    this.based_on = lowestSample
+    this.calculateRatio(lowestSample)
 
   }
 

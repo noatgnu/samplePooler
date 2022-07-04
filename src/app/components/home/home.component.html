@@ -15,6 +15,12 @@
             </select>
           </ng-container>
         </div>
+        <div class="col-4" *ngIf="inputFile.df.count()>0">
+          <div class="form-group">
+            <label for="minGoodSamples">Minimum amount of non-null samples</label>
+            <input type="number" class="form-control" id="minGoodSamples" [(ngModel)]="minGoodSamples">
+          </div>
+        </div>
       </div>
     </div>
     <div class="card-footer">
@@ -54,7 +60,25 @@
 
 <ng-container *ngIf="finished">
   <div class="container-fluid mt-2">
-    <app-bar-chart [data]="ratios"></app-bar-chart>
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <b class="card-title display-8">Accumulated Sum Distribution</b>
+            <app-bar-chart [data]="sampleSum"></app-bar-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <b class="card-title display-8">Ratio Distribution</b>
+            <app-bar-chart [data]="ratios"></app-bar-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </ng-container>
 
